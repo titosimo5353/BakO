@@ -3,65 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BakO - Profesyonel Panel</title>
-    <script src="modelin_adi.glb"></script>
+    <title>BakO - 3D Ürün Deneyimi</title>
+    <script type="module" src="model.glb"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; display: flex; flex-direction: column; align-items: center; }
-        header { background: #ff6600; color: white; width: 100%; padding: 25px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .container { max-width: 500px; width: 90%; margin-top: 50px; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-        .btn { background: #ff6600; color: white; border: none; padding: 18px 30px; border-radius: 50px; font-size: 18px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3); }
-        .btn:hover { background: #e65c00; transform: translateY(-2px); }
-        .info { color: #666; font-size: 14px; margin-top: 20px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #fafafa; display: flex; flex-direction: column; align-items: center; }
+        header { background: #ff6600; color: white; width: 100%; padding: 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        model-viewer { width: 100%; height: 75vh; background-color: #ffffff; --poster-color: #ffffff; }
+        .footer { padding: 20px; text-align: center; }
+        .ar-button { background: #ff6600; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 15px rgba(255,102,0,0.4); }
     </style>
 </head>
 <body>
 
 <header>
     <h1>BakO</h1>
-    <p>Geleceğin 3D Katalog Sistemi</p>
+    <p>3D Ürün Katalog Sistemi</p>
 </header>
 
-<div class="container">
-    <h2>Ürün Videosu Yükle</h2>
-    <p>Ürünün etrafında döndüğünüz videoyu seçin, AI gerisini halletsin.</p>
-    
-    <button class="btn" id="uploadBtn">📁 Videoyu Seç ve Yükle</button>
-    
-    <div class="info">
-        Yüklenen videolar güvenli sunucularımızda 3D modele dönüştürülmek üzere işlenir.
-    </div>
+<model-viewer 
+    src="MODEL_DOSYASININ_ADI.glb" 
+    ar 
+    ar-modes="webxr scene-viewer quick-look" 
+    camera-controls 
+    auto-rotate 
+    shadow-intensity="1">
+    <button slot="ar-button" class="ar-button">🏠 ÜRÜNÜ ODANA KOY</button>
+</model-viewer>
+
+<div class="footer">
+    <h2>İlk BakO Ürünün</h2>
+    <p>Telefonunu yere tutarak ürünü gerçek boyutlarında incele.</p>
 </div>
-
-<script>
-  const uploadBtn = document.getElementById('uploadBtn');
-
-  uploadBtn.onclick = () => {
-    Bytescale.UploadWidget.open({
-      apiKey: "public_223k2bYGM9vNRN3e96fmepoua4BB", // Senin API Key'in
-      maxFileCount: 1,
-      mimeTypes: ["video/*"],
-      multi: false,
-      showFinishButton: true,
-      styles: {
-        colors: {
-          primary: "#ff6600"
-        }
-      }
-    }).then(
-      files => {
-        const fileUrl = files.map(x => x.fileUrl).join("\n");
-        if (fileUrl) {
-          alert("✅ Başarılı! Video sisteme düştü.\n\nVideo Adresi: " + fileUrl);
-          console.log("Video yüklendi:", fileUrl);
-          // Buradan sonra bu URL'yi alıp 3D servisine göndereceğiz.
-        }
-      },
-      error => {
-        alert("Hata: " + error);
-      }
-    );
-  };
-</script>
 
 </body>
 </html>
